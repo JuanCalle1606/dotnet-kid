@@ -10,4 +10,8 @@
     <RootNamespace>dotnet_kyd</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <OutputPath>$(SolutionDir)build\$(Configuration)</OutputPath>
+  </PropertyGroup>
+
 </Project>
