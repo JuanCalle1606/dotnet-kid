@@ -1,12 +1,34 @@
-﻿using System;
+﻿using System.CommandLine;
+using System.CommandLine.Invocation;
+using System.CommandLine.Parsing;
+using System.Threading.Tasks;
+using KYLib.ConsoleUtils;
 
 namespace config
 {
-	class Program
+	partial class Program
 	{
-		static async void Main(string[] args)
+		static async Task<int> Main(string[] args)
 		{
-			Console.WriteLine("Hello World!");
+			//global options
+			root.AddGlobalOption(Release);
+
+			//add aliases
+			csharp.AddAlias("c#");
+			csharp.AddAlias("cs");
+
+			//hadlers
+			root.Handler = CommandHandler.Create(() =>
+			{
+				root.Invoke("-h");
+			});
+			vala.Handler = CommandHandler.Create<ParseResult>(Vala);
+
+			//add commands
+			root.AddCommand(vala);
+			root.AddCommand(csharp);
+			//return code
+			return await root.InvokeAsync(args);
 		}
 	}
 }

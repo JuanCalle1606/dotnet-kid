@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\KYLib-CSharp\KYLib\KYLib.csproj" />
+    <ProjectReference Include="..\..\KYLib-CSharp\KYLib.ConsoleUtils\KYLib.ConsoleUtils.csproj" />
   </ItemGroup>
 
 </Project>
