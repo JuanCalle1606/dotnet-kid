@@ -17,6 +17,15 @@ namespace config
 				new[]{"--name","-n"},
 				()=>"{CurrentDirName}",
 				"Nombre del proyecto"
+			),
+			new Option<string>(
+				new[]{"--target-glib","-t"},
+				()=>"2.58",
+				"Version de glib de destino"
+			),
+			new Option<string[]>(
+				new[]{"--dependencies","-d"},
+				"Lista de dependencias a agregar"
 			)
 		};
 

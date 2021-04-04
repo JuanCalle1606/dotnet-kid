@@ -1,13 +1,8 @@
-using System;
-using System.CommandLine;
-using System.CommandLine.Invocation;
 using System.CommandLine.Parsing;
 using System.IO;
-using System.Threading.Tasks;
 using common;
 using KYLib.Data;
 using KYLib.Data.DataFiles;
-using static KYLib.ConsoleUtils.Cons;
 
 namespace config
 {
@@ -15,7 +10,9 @@ namespace config
 	{
 		private static Dirs dirs = new();
 
-		static void Vala(ParseResult parseResult, DirectoryInfo output, string name)
+		static void Vala(
+		ParseResult parseResult, DirectoryInfo output,
+		string name, string targetglib, string[] dependencies)
 		{
 			Config nconfig = new();
 			//get global options
@@ -27,6 +24,11 @@ namespace config
 
 			nconfig.Build.Configuration = rel ? "Release" : "Debug";
 			nconfig.Build.Name = name;
+			nconfig.Build.Dependencies = new ValaDeps();
+			if (dependencies != null)
+				foreach (var item in dependencies)
+					nconfig.Build.Dependencies.Deps.Add(item);
+
 
 			var degubProc = rel ? "" : " --debug";
 
@@ -34,10 +36,9 @@ namespace config
 			{
 				Comment = "Build the source code into {OutputDir} using {Task}",
 				Task = "valac",
-				args = $"{{CurrentDir}}/*.vala{degubProc} --target-glib=2.58 {{Dependencies}} -o {{Name}} {{OutRedirect}} {{OutputDir}}",
+				args = $"{{CurrentDir}}/*.vala{degubProc} --target-glib={targetglib} {{Dependencies}} -o {{Name}} {{OutRedirect}} {{OutputDir}}",
 				OutRedirect = "-d"
 			});
-
 
 			if (format)
 			{

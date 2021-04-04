@@ -29,9 +29,6 @@ namespace config
 				typeof(Program).GetMethod("Vala", BindingFlags.Static | BindingFlags.NonPublic),
 				null);
 
-			//validator
-
-
 			//add commands
 			root.AddCommand(vala);
 			root.AddCommand(csharp);

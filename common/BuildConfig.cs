@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using KYLib.Extensions;
-
 using DO = Newtonsoft.Json.JsonObjectAttribute;
 using DP = Newtonsoft.Json.JsonPropertyAttribute;
 
@@ -34,6 +33,11 @@ namespace common
 		/// Lista de comandos a ejecutar.
 		/// </summary>
 		[DP] public List<BashProc> Cmd = new();
+
+		/// <summary>
+		/// Guarda las dependecias del proyecto
+		/// </summary>
+		[DP] public BuildDeps Dependencies;
 
 	}
 }

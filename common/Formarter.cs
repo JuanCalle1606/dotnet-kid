@@ -60,7 +60,7 @@ namespace common
 
 			string dev = input;
 			foreach (var item in props)
-				dev = dev.Replace($"{{{item.Name}}}", item.GetValue(source).ToString());
+				dev = dev.Replace($"{{{item.Name}}}", $"{item.GetValue(source)}");
 
 			return dev;
 		}
