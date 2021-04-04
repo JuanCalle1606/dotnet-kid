@@ -1,6 +1,7 @@
 ﻿using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.CommandLine.Parsing;
+using System.Reflection;
 using System.Threading.Tasks;
 using KYLib.ConsoleUtils;
 
@@ -12,6 +13,7 @@ namespace config
 		{
 			//global options
 			root.AddGlobalOption(Release);
+			root.AddGlobalOption(Format);
 
 			//add aliases
 			csharp.AddAlias("c#");
@@ -22,7 +24,13 @@ namespace config
 			{
 				root.Invoke("-h");
 			});
-			vala.Handler = CommandHandler.Create<ParseResult>(Vala);
+
+			vala.Handler = CommandHandler.Create(
+				typeof(Program).GetMethod("Vala", BindingFlags.Static | BindingFlags.NonPublic),
+				null);
+
+			//validator
+
 
 			//add commands
 			root.AddCommand(vala);
