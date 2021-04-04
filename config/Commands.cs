@@ -27,5 +27,16 @@ namespace config
 				"Indica si se deben separar las configuraciones Build y Release"
 			),
 		};
+
+		static Command format = new Command("format", "Formatea una archivo de configuración.")
+		{
+			new Argument<FileInfo>(
+				"file",
+				"Archivo a formatear, si no se especifica se buscara uno en el directorio actual."
+			)
+			{
+				Arity = ArgumentArity.ZeroOrOne
+			}.ExistingOnly()
+		};
 	}
 }

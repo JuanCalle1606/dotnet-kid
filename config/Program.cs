@@ -21,6 +21,7 @@ namespace config
 			csharp.AddAlias("c#");
 			csharp.AddAlias("cs");
 
+
 			//hadlers
 			root.Handler = CommandHandler.Create(() =>
 			{
@@ -30,14 +31,18 @@ namespace config
 			vala.Handler = CommandHandler.Create(
 				typeof(Program).GetMethod("Vala", BindingFlags.Static | BindingFlags.NonPublic),
 				null);
-
 			csharp.Handler = CommandHandler.Create(
 				typeof(Program).GetMethod("Csharp", BindingFlags.Static | BindingFlags.NonPublic),
+				null);
+			format.Handler = CommandHandler.Create(
+				typeof(Program).GetMethod("FormatCmd", BindingFlags.Static | BindingFlags.NonPublic),
 				null);
 
 			//add commands
 			root.AddCommand(vala);
 			root.AddCommand(csharp);
+			root.AddCommand(format);
+
 			//return code
 			return await root.InvokeAsync(args);
 		}
