@@ -10,14 +10,14 @@ namespace config
 	{
 		private static Dirs dirs = new();
 
-		static void Vala(
-		ParseResult parseResult, DirectoryInfo output,
-		string name, string targetglib, string[] dependencies)
+		static void Vala(ParseResult parseResult, string targetglib, string[] dependencies)
 		{
 			Config nconfig = new();
 			//get global options
 			var rel = parseResult.ValueForOption(Release);
 			var format = parseResult.ValueForOption(Format);
+			var name = parseResult.ValueForOption(Name);
+			var output = parseResult.ValueForOption(Output);
 
 			if (output != null)
 				nconfig.Build.OutputDir = output.FullName;

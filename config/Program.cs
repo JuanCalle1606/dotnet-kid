@@ -14,6 +14,8 @@ namespace config
 			//global options
 			root.AddGlobalOption(Release);
 			root.AddGlobalOption(Format);
+			root.AddGlobalOption(Name);
+			root.AddGlobalOption(Output);
 
 			//add aliases
 			csharp.AddAlias("c#");

@@ -9,15 +9,6 @@ namespace config
 
 		static Command vala = new Command("vala", "Crea un archivo de configuración para un proyecto de vala.")
 		{
-			new Option<DirectoryInfo>(
-				new[]{"--output","-o"},
-				"Directorio de salida del comando Build"
-			),
-			new Option<string>(
-				new[]{"--name","-n"},
-				()=>"{CurrentDirName}",
-				"Nombre del proyecto"
-			),
 			new Option<string>(
 				new[]{"--target-glib","-t"},
 				()=>"2.58",
