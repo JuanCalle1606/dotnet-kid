@@ -20,6 +20,12 @@ namespace config
 			)
 		};
 
-		static Command csharp = new Command("csharp", "Crea un archivo de configuración para un proyecto de C#.");
+		static Command csharp = new Command("csharp", "Crea un archivo de configuración para un proyecto de C#.")
+		{
+			new Option<bool>(
+				new[]{"--separe-config","-s"},
+				"Indica si se deben separar las configuraciones Build y Release"
+			),
+		};
 	}
 }

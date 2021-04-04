@@ -31,6 +31,10 @@ namespace config
 				typeof(Program).GetMethod("Vala", BindingFlags.Static | BindingFlags.NonPublic),
 				null);
 
+			csharp.Handler = CommandHandler.Create(
+				typeof(Program).GetMethod("Csharp", BindingFlags.Static | BindingFlags.NonPublic),
+				null);
+
 			//add commands
 			root.AddCommand(vala);
 			root.AddCommand(csharp);
