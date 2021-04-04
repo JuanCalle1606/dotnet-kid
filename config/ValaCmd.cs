@@ -8,8 +8,6 @@ namespace config
 {
 	partial class Program
 	{
-		private static Dirs dirs = new();
-
 		static void Vala(ParseResult parseResult, string targetglib, string[] dependencies)
 		{
 			Config nconfig = new();
@@ -41,14 +39,7 @@ namespace config
 			});
 
 			if (format)
-			{
-				Formarter.AutoFormat(nconfig.Build, dirs);
-				Formarter.AutoFormat(nconfig.Build);
-
-				Formarter.AutoFormat(nconfig.Build.Cmd, dirs);
-				Formarter.AutoFormat(nconfig.Build.Cmd, nconfig.Build);
-				Formarter.AutoFormat(nconfig.Build.Cmd);
-			}
+				nconfig.Format();
 			Files.Save<JsonFile>(nconfig, ".kyd");
 		}
 	}

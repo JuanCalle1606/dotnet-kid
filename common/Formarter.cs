@@ -39,7 +39,7 @@ namespace common
 				if (item.FieldType == stype)//es un string, formatear
 				{
 					//se formatean con las variables internas
-					item.SetValue(obj, Format(with, item.GetValue(obj).ToString()));
+					item.SetValue(obj, Format(with, $"{item.GetValue(obj)}"));
 				}
 			}
 		}
@@ -51,6 +51,7 @@ namespace common
 
 		public static string Format(object source, string input)
 		{
+			if (string.IsNullOrWhiteSpace(input)) return null;
 			if (!formatValidator.IsMatch(input)) return input;
 
 			var t = source.GetType();
