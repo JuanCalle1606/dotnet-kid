@@ -54,6 +54,7 @@ namespace common
 
 		private void DiscoverFiles()
 		{
+			if (string.IsNullOrWhiteSpace(Args)) return;
 			var files = Directory.GetFiles(RunIn).ToList();
 			files = files.Select(s => Path.GetFileName(s)).ToList();
 

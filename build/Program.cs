@@ -54,7 +54,6 @@ namespace build
 				root.Invoke("-h");
 				return 1;
 			}
-			nconfig.Format();
 
 			//all ok, start building
 			if (nconfig.Build.Configuration == BuildMode.Both)
@@ -65,11 +64,12 @@ namespace build
 				var releaseMode = Files.Deserialize<JsonFile, Config>(raw);
 				releaseMode.Build.Configuration = BuildMode.Release;
 				releaseMode.Format();
-				BuildWith(debugMode);
 				BuildWith(releaseMode);
+				BuildWith(debugMode);
 			}
 			else
 			{
+				nconfig.Format();
 				BuildWith(nconfig);
 			}
 			Cons.Line = "Build completed";
