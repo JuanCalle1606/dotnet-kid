@@ -18,7 +18,7 @@ namespace common
 		/// <summary>
 		/// Configuración que se usara en la contruccion por defecto.
 		/// </summary>
-		[DP] public string Configuration = "Debug";
+		[DP] public BuildMode Configuration = BuildMode.Debug;
 
 		/// <summary>
 		/// Directorio en el cual se guardara la salida del programa.
@@ -39,5 +39,13 @@ namespace common
 		/// </summary>
 		[DP] public BuildDeps Dependencies;
 
+	}
+
+	public enum BuildMode
+	{
+		Both,
+		Release,
+		Debug,
+		Other
 	}
 }

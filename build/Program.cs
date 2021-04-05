@@ -37,11 +37,13 @@ namespace build
 		static int Root(FileInfo file)
 		{
 			string path = file.FullName;
+			string raw = null;
 
 			Config nconfig;
 			try
 			{
-				nconfig = Files.Load<JsonFile, Config>(path);
+				raw = File.ReadAllText(path);
+				nconfig = Files.Deserialize<JsonFile, Config>(raw);
 			}
 			catch (Exception)
 			{
@@ -53,7 +55,29 @@ namespace build
 				return 1;
 			}
 			nconfig.Format();
+
 			//all ok, start building
+			if (nconfig.Build.Configuration == BuildMode.Both)
+			{
+				var debugMode = Files.Deserialize<JsonFile, Config>(raw);
+				debugMode.Build.Configuration = BuildMode.Debug;
+				debugMode.Format();
+				var releaseMode = Files.Deserialize<JsonFile, Config>(raw);
+				releaseMode.Build.Configuration = BuildMode.Release;
+				releaseMode.Format();
+				BuildWith(debugMode);
+				BuildWith(releaseMode);
+			}
+			else
+			{
+				BuildWith(nconfig);
+			}
+			Cons.Line = "Build completed";
+			return 0;
+		}
+
+		static void BuildWith(Config nconfig)
+		{
 			Int ntasks = 1, ttask = nconfig.Build.Cmd.Count;
 			Cons.Line = $"Building {nconfig.Build.Name} with {ttask} tasks.";
 			bool canrun = false;
@@ -85,8 +109,6 @@ namespace build
 					Cons.Line = $"Jumping task due to condition ({lastCon}) is not true";
 
 			}
-			Cons.Line = "Build completed";
-			return 0;
 		}
 	}
 }

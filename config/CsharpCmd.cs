@@ -21,7 +21,7 @@ namespace config
 			if (output != null)
 				nconfig.Build.OutputDir = output.FullName;
 
-			nconfig.Build.Configuration = rel ? "Release" : "Debug";
+			nconfig.Build.Configuration = rel ? BuildMode.Release : BuildMode.Debug;
 			nconfig.Build.Name = name;
 
 			if (separeconfig)

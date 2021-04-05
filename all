@@ -1,11 +1,11 @@
 {
 	"Build": {
 		"Name": "{CurrentDirName}",
-		"Configuration": "Release",
+		"Configuration": "Both",
 		"OutputDir": "{UserDir}/bin",
 		"Cmd": [
 			{
-				"Comment": "Build the source code into {OutputDir}/Debug using {Task}",
+				"Comment": "Build into {OutputDir}/Debug using {Task}",
 				"RunIn": "{CurrentDir}",
 				"Task": "dotnet",
 				"Args": "build {OutRedirect} {OutputDir}/Debug",
@@ -18,7 +18,7 @@
 				]
 			},
 			{
-				"Comment": "Build the source code into {OutputDir} using {Task}",
+				"Comment": "Build into {OutputDir} using {Task}",
 				"RunIn": "{CurrentDir}",
 				"Task": "dotnet",
 				"Args": "build -c Release {OutRedirect} {OutputDir}",
