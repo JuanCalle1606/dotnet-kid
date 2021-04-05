@@ -32,5 +32,24 @@ namespace common
 				valid &= !NotEqualsTo.Equals(Input);
 			return valid;
 		}
+
+		public override string ToString()
+		{
+			string dev = null;
+			bool hasPrev = false;
+
+			if (EqualsTo != null)
+			{
+				dev += $"'{Input}'=='{EqualsTo}'";
+				hasPrev = true;
+			}
+			if (NotEqualsTo != null)
+			{
+				if (hasPrev) dev += " && ";
+				dev += $"'{Input}'!='{NotEqualsTo}'";
+				hasPrev = true;
+			}
+			return dev;
+		}
 	}
 }

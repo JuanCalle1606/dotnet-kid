@@ -1,4 +1,5 @@
 using System;
+using System.CommandLine;
 using System.IO;
 using common;
 using KYLib.ConsoleUtils;
@@ -25,6 +26,8 @@ namespace config
 				Cons.Error = path.Equals(".kyd") ?
 				"No se ha podido encontrar el archivo .kyd en el directorio actual" :
 				"El archivo especificado no ha podido ser cargado";
+				Cons.Trace();
+				format.Invoke("-h");
 				return;
 			}
 			nconfig.Format();

@@ -34,7 +34,7 @@ namespace config
 			{
 				Comment = "Build the source code into {OutputDir} using {Task}",
 				Task = "valac",
-				args = $"{{CurrentDir}}/*.vala{degubProc} --target-glib={targetglib} {{Dependencies}} -o {{Name}} {{OutRedirect}} {{OutputDir}}",
+				Args = $"{{File:.vala}}{degubProc} -v --target-glib={targetglib} {{Dependencies}} -o {{Name}} {{OutRedirect}} {{OutputDir}}",
 				OutRedirect = "-d"
 			});
 
