@@ -1,6 +1,6 @@
-
 using System;
 using System.IO;
+using KYLib.System;
 
 namespace common
 {
@@ -20,5 +20,12 @@ namespace common
 		/// Nombre del directorio actual
 		/// </summary>
 		public string CurrentDirName = Environment.CurrentDirectory.Split(Path.DirectorySeparatorChar)[^1];
+
+		/// <summary>
+		/// Systema operativo actual.
+		/// </summary>
+		public OS CurrentSystem = Info.CurrentSystem;
+
+		
 	}
 }

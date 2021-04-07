@@ -17,11 +17,6 @@ namespace dotnet_kyd
 			AddItem("Run release", RunRelease, true);
 			AddItem("Build and Run debug", BuildRunDebug, true);
 			AddItem("Build and Run release", BuildRunRelease, true);
-
-			YadTrayIcon icon = (YadTrayIcon)TrayIconFactory.Create();
-			icon.Tooltip = "dotnet Kyd";
-			icon.Icon = "/home/koto/Descargas/vivacristorei.png";
-			icon.Command += (_, _) => BuildRunDebug();
 		}
 
 		private void BuildRunRelease()

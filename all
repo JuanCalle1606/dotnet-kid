@@ -38,7 +38,8 @@
 				"Conditions": [
 					{
 						"Input": "{Configuration}",
-						"EqualsTo": "Release"
+						"EqualsTo": "Release",
+						"SystemBased": "Linux"
 					}
 				]
 			}

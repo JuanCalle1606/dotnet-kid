@@ -1,5 +1,8 @@
+using KYLib.Extensions;
+using KYLib.System;
 using DO = Newtonsoft.Json.JsonObjectAttribute;
 using DP = Newtonsoft.Json.JsonPropertyAttribute;
+
 namespace common
 {
 	[DO(Newtonsoft.Json.MemberSerialization.OptIn)]
@@ -8,7 +11,7 @@ namespace common
 		/// <summary>
 		/// Texto de entrada
 		/// </summary>
-		[DP] public string Input = "";
+		[DP] public string Input;
 
 		/// <summary>
 		/// Input debe ser igual que esta propiedad
@@ -21,6 +24,11 @@ namespace common
 		[DP] public string NotEqualsTo;
 
 		/// <summary>
+		/// Condicion que valida que el sistema operativo actual esta basado en el especificado.
+		/// </summary>
+		[DP] public OS? SystemBased;
+
+		/// <summary>
 		/// Valida que se cumplan las condiciones
 		/// </summary>
 		public bool Valid()
@@ -30,6 +38,8 @@ namespace common
 				valid &= EqualsTo.Equals(Input);
 			if (NotEqualsTo != null)
 				valid &= !NotEqualsTo.Equals(Input);
+			if (SystemBased != null)
+				valid &= Info.CurrentSystem.Is(SystemBased.Value);
 			return valid;
 		}
 
@@ -47,6 +57,12 @@ namespace common
 			{
 				if (hasPrev) dev += " && ";
 				dev += $"'{Input}'!='{NotEqualsTo}'";
+				hasPrev = true;
+			}
+			if (SystemBased != null)
+			{
+				if (hasPrev) dev += " && ";
+				dev += $"CurrentSystem.Is({SystemBased})";
 				hasPrev = true;
 			}
 			return dev;
