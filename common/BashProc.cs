@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using KYLib.Extensions;
+using KYLib.MathFn;
 using KYLib.System;
 using DO = Newtonsoft.Json.JsonObjectAttribute;
 using DP = Newtonsoft.Json.JsonPropertyAttribute;
@@ -43,32 +44,21 @@ namespace common
 		/// </summary>
 		[DP] public List<Condition> Conditions;
 
+		/// <summary>
+		/// Guarda el codigo de salida del programa.
+		/// </summary>
+		public Int ExitCode = -1;
+
 		public void Run()
 		{
-			DiscoverFiles();
-			Console.WriteLine($"$ {Task} {Args}");
-			Bash.RunCommand(Task, Args, RunIn);
-		}
+			var bash = $"{Task} {Args}";
+			Console.WriteLine($"$ {bash}");
 
-		private static Regex fileValidator = new Regex(@"{File:([.\w]+)}");
-
-		private void DiscoverFiles()
-		{
-			if (string.IsNullOrWhiteSpace(Args)) return;
-			var files = Directory.GetFiles(RunIn).ToList();
-			files = files.Select(s => Path.GetFileName(s)).ToList();
-
-			var mat = fileValidator.Matches(Args);
-
-			foreach (Match item in mat)
+			using (var p = Bash.CreateBashProcess(bash, RunIn))
 			{
-				var content = item.Groups.Values.ElementAt(1);
-				Args = Args.Replace(
-					item.ToString(),
-					files.FindAll(
-						s => s.Contains(content.ToString())
-					).ToString(' ')
-				);
+				p.Start();
+				p.WaitForExit();
+				ExitCode = p.ExitCode;
 			}
 		}
 	}
